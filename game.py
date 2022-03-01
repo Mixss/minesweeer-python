@@ -43,8 +43,7 @@ class Game:
             if self.playing:
                 if button == 1: # left mouse click
                     if not self.board.uncover_field(x//t_size, (y-GUI_HEIGHT)//t_size): # lose
-                        if self.first_move:
-                            print("zrobiono")
+                        if self.first_move: # make sure there won't be any bomb on the first move
                             self.board.reset()
                             while not self.board.uncover_field(x//t_size, (y-GUI_HEIGHT)//t_size):
                                 self.board.reset()
