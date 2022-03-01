@@ -5,7 +5,7 @@ from sprites import TILE_SIZE as t_size
 
 BOARD_SIZE_X = 25
 BOARD_SIZE_Y = 25
-NUMBER_OF_BOMBS = 300
+NUMBER_OF_BOMBS = 150
 GUI_HEIGHT = 50
 
 class Game:
