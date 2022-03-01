@@ -13,6 +13,7 @@ class Game:
         self.window = window
         self.board = board.Board(self.window, BOARD_SIZE_X, BOARD_SIZE_Y, NUMBER_OF_BOMBS, 0, GUI_HEIGHT)
         self.playing = True
+        self.first_move = True
 
         # gui
         self.is_button_clicked = False
@@ -42,9 +43,15 @@ class Game:
             if self.playing:
                 if button == 1: # left mouse click
                     if not self.board.uncover_field(x//t_size, (y-GUI_HEIGHT)//t_size): # lose
-                        self.playing = False
-                        self.sprite_button = sprites.button_face_lose
-                        self.sprite_button_clicked = sprites.button_face_lose_clicked
+                        if self.first_move:
+                            print("zrobiono")
+                            self.board.reset()
+                            while not self.board.uncover_field(x//t_size, (y-GUI_HEIGHT)//t_size):
+                                self.board.reset()
+                        else:
+                            self.playing = False
+                            self.sprite_button = sprites.button_face_lose
+                            self.sprite_button_clicked = sprites.button_face_lose_clicked
                     elif self.board.is_win(): #check if win
                         self.playing = False
                         self.sprite_button = sprites.button_face_win
@@ -53,19 +60,24 @@ class Game:
                 elif button == 3:
                     self.board.put_flag(x//t_size, (y-GUI_HEIGHT)//t_size)
 
+        self.first_move = False
+
     def up_click_on_screen(self, x, y, button):
-        if button == 1:
-            self.release_button()
+        if y < 50:
+            if x > 281 and x < 318:
+                if button == 1:
+                    self.release_button()
 
     def reset(self):
         self.playing = True
         self.board.reset()
+        self.first_move = True
         self.sprite_button = sprites.button_face_smiling
         self.sprite_button_clicked = sprites.button_face_smiling_clicked
 
     def click_button(self):
         self.is_button_clicked = True
-        self.reset()
 
     def release_button(self):
         self.is_button_clicked = False
+        self.reset()
