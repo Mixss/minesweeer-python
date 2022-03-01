@@ -5,7 +5,7 @@ from sprites import TILE_SIZE as t_size
 
 BOARD_SIZE_X = 25
 BOARD_SIZE_Y = 25
-NUMBER_OF_BOMBS = 120
+NUMBER_OF_BOMBS = 300
 GUI_HEIGHT = 50
 
 class Game:
@@ -14,6 +14,7 @@ class Game:
         self.board = board.Board(self.window, BOARD_SIZE_X, BOARD_SIZE_Y, NUMBER_OF_BOMBS, 0, GUI_HEIGHT)
         self.playing = True
         self.first_move = True
+        self.clicked_on_button = False
 
         # gui
         self.is_button_clicked = False
@@ -35,9 +36,11 @@ class Game:
         self.draw()
 
     def down_click_on_screen(self, x, y, button):
+        self.clicked_on_button = False
         if y < 50:
-            if x > 281 and x < 318:
+            if 281 < x < 318:
                 if button == 1:
+                    self.clicked_on_button = True
                     self.click_button()
         else:
             if self.playing:
@@ -62,10 +65,8 @@ class Game:
         self.first_move = False
 
     def up_click_on_screen(self, x, y, button):
-        if y < 50:
-            if x > 281 and x < 318:
-                if button == 1:
-                    self.release_button()
+        if button == 1 and self.clicked_on_button:
+            self.release_button()
 
     def reset(self):
         self.playing = True
