@@ -155,7 +155,7 @@ class Board:
                     elif bombs == 7:
                         self.window.blit(sprites.tile_7, (t_size * x + self.board_x, t_size * y + self.board_y))
                     elif bombs == 8:
-                        self.window.blit(sprites.tile_7, (t_size * x + self.board_x, t_size * y + self.board_y))
+                        self.window.blit(sprites.tile_8, (t_size * x + self.board_x, t_size * y + self.board_y))
                     elif bombs == -1:
                         self.window.blit(sprites.tile_bomb, (t_size * x + self.board_x, t_size * y + self.board_y))
                     elif bombs == -3:
